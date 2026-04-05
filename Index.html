@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    :root { --maroon: #800000; --gold: #ffc107; }
+    body { background-color: #fcfcfc; font-family: 'Segoe UI', sans-serif; }
+    
+    /* Navbar */
+    .navbar-jaga {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--maroon);
+    }
+    .nav-link { color: var(--maroon) !important; font-weight: 600; margin: 0 10px; }
+    .nav-link:hover { color: var(--gold) !important; }
+    .navbar-brand span { font-weight: 800; color: var(--maroon); letter-spacing: 1px; }
+
+    /* Header */
+/* Update Header agar 1 Layar Penuh */
+.header-jaga {
+  color: white;
+  background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+  min-height: calc(100vh - 70px); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 5px solid var(--gold);
+  text-align: center;
+  position: relative;
+  
+  /* Pengaturan Background */
+  background-size: cover;      /* Gambar menutupi seluruh area */
+  background-position: center;   /* Gambar fokus di tengah */
+  background-repeat: no-repeat;
+  background-attachment: fixed;  /* Efek paralaks saat scroll */
+}
+.header-content {
+  transition: opacity 0.8s ease-in-out;
+  width: 100%;
+}
+
+/* Animasi tambahan agar tampilan lebih dramatis saat dibuka */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#headerWrapper {
+  animation: fadeInUp 1s ease-out;
+}
+
+    /* Cards & Section */
+    .progress-box { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    .section-title { color: var(--maroon); font-weight: bold; margin-bottom: 30px; }
+    .section-title::after { content: ''; display: block; width: 50px; height: 3px; background: var(--gold); margin: 10px auto; }
+    .step-icon { width: 60px; height: 60px; background: var(--maroon); color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 15px; font-size: 24px; border: 3px solid var(--gold); }
+    
+    .btn-main { background: var(--maroon); color: white; border: 2px solid white; padding: 12px 30px; font-weight: bold; border-radius: 30px; transition: 0.3s; text-decoration: none; display: inline-block; }
+    .btn-main:hover { background: white; color: var(--maroon); transform: scale(1.05); }
+    
+    section { scroll-margin-top: 100px; }
+    .border-maroon { border: 2px solid var(--maroon) !important; }
+    .btn-maroon { background-color: var(--maroon); color: white; }
+    .btn-maroon:hover { background-color: #4a0000; color: white; }
+
+    .bounce {
+  animation: bounce 2s infinite;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-10px);}
+  60% {transform: translateY(-5px);}
+}
+
+.navbar-brand img {
+  height: 40px; /* Atur tinggi logo sesuai kebutuhan */
+  width: auto;
+  margin-right: 15px; /* Memberi jarak antara logo dan teks JAGA HARTWELL */
+  object-fit: contain;
+}
+
+/* Gaya Kotak Deskripsi di Header */
+.description-box {
+  max-width: 850px;
+  background: rgba(255, 255, 255, 0.1); /* Transparan putih tipis */
+  backdrop-filter: blur(5px); /* Efek kaca kekinian */
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  text-align: justify;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.description-box strong {
+  color: var(--gold);
+}
+
+/* Penyesuaian Responsif untuk Mobile */
+@media (max-width: 768px) {
+  .description-box {
+    font-size: 0.95rem;
+    text-align: center;
+    border-left: none;
+    border-top: 3px solid var(--gold);
+    padding: 20px !important;
+  }
+  .header-jaga h1 {
+    font-size: 3rem;
+  }
+}
+/* Gaya Khusus Tombol Lapor di Navbar */
+/* Gaya Tombol Lapor dengan Gradasi */
+.navbar-nav .btn-danger {
+  /* Gradasi warna Maroon ke Hitam atau Merah Terang */
+  background: linear-gradient(135deg, #800000 0%, #b30000 100%);
+  border: none;
+  font-size: 0.85rem;
+  padding: 8px 25px !important;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(128, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-nav .btn-danger:hover {
+  /* Efek saat kursor di atas tombol: Gradasi berputar/berubah */
+  background: linear-gradient(135deg, #b30000 0%, #800000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(128, 0, 0, 0.4);
+  color: white !important;
+}
+
+/* Efek Kilauan (Glow) di sekitar tombol */
+.navbar-nav .btn-danger::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.navbar-nav .btn-danger:hover::after {
+  left: 100%;
+}
+
+/* Mengatur agar tombol login lebih kecil agar tidak berebut perhatian */
+.nav-item .btn-outline-secondary {
+  color: #666;
+  opacity: 0.7;
+}
+
+/* Gaya untuk Section Detail WBS */
+#detail-wbs .card {
+  border-top: 4px solid var(--maroon) !important;
+}
+
+.text-maroon {
+  color: var(--maroon);
+}
+
+.bg-maroon {
+  background-color: var(--maroon);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgba(128, 0, 0, 0.05);
+  color: var(--maroon);
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: var(--maroon);
+}
+
+#detail-wbs section {
+  scroll-margin-top: 120px;
+}
+  </style>
+</head>
+<div class="modal fade" id="modalPelaporan" tabindex="-1" aria-labelledby="modalPelaporanLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content" style="border-top: 6px solid var(--maroon); border-radius: 15px;">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold text-maroon" id="modalPelaporanLabel">FORMULIR PENGADUAN WBS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="alert alert-info small mb-4" style="background-color: rgba(128, 0, 0, 0.05); border-left: 4px solid var(--maroon);">
+          <i class="fas fa-user-shield me-2"></i> <strong>Anonimitas Terjamin:</strong> Identitas Anda tidak akan terekam kecuali Anda mencantumkannya secara sengaja.
+        </div>
+        
+<form id="wbsForm">
+  <div class="mb-3">
+    <label class="form-label fw-bold text-maroon">Kategori Pelanggaran</label>
+    <select class="form-select" name="kategori" required>
+      <option value="" disabled selected>Pilih Kategori...</option>
+      <option>Korupsi & Penyuapan</option>
+      <option>Kecurangan (Fraud)</option>
+      <option>Pelecehan & Perundungan</option>
+      <option>Pelanggaran Kode Etik</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold text-maroon">Apa yang terjadi?</label>
+    <textarea class="form-control" name="perbuatan" rows="3" placeholder="Ceritakan kronologi..." required></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label fw-bold text-maroon">Lokasi Kejadian</label>
+      <input type="text" class="form-control" name="lokasi" placeholder="Contoh: Gudang A" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label fw-bold text-maroon">Waktu Kejadian</label>
+      <input type="date" class="form-control" name="waktu" required>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold text-maroon">Siapa yang terlibat?</label>
+    <input type="text" class="form-control" name="terlapor" placeholder="Nama atau Jabatan Terlapor" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold text-maroon">Bagaimana perbuatan dilakukan?</label>
+    <textarea class="form-control" name="cara" rows="2" placeholder="Jelaskan cara/modusnya..." required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold text-maroon">Unggah Bukti</label>
+    <input type="file" id="fileInput" class="form-control" multiple required>
+    <div class="form-text small text-danger">* Wajib melampirkan minimal 1 bukti file.</div>
+  </div>
+
+  <button type="submit" id="submitBtn" class="btn btn-maroon w-100 py-2 mt-3">KIRIM LAPORAN</button>
+</form>
+
+        <div id="successMsg" style="display:none;" class="text-center py-4">
+          <i class="fas fa-check-circle text-success display-4 mb-3"></i>
+          <h4 class="fw-bold">Laporan Terkirim!</h4>
+          <p>Terima kasih atas laporan Anda.</p>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-jaga">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="https://images.weserv.nl/?url=drive.google.com/uc?id=1Ji03dnqS7FA_pRGkzNL5shm3wcPk8oRE" alt="Hartwell" height="40">
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item me-lg-3">
+
+  <button class="btn btn-danger btn-sm px-4 fw-bold rounded-pill" data-bs-toggle="modal" data-bs-target="#modalPelaporan">
+  <i class="fas fa-paper-plane me-1"></i> LAPORKAN SEKARANG
+</button>
+
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#infografis">Infografis</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tata-cara">Prosedur Pengaduan</a></li>
+
+        <li class="nav-item dropdown ms-lg-3">
+          <button class="btn btn-outline-secondary btn-sm dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+            <i class="fas fa-lock"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end p-3 shadow-lg border-maroon" style="min-width: 250px;">
+            <h6 class="dropdown-header px-0 text-dark fw-bold">Akses Tim Audit</h6>
+            <input type="password" id="passInput" class="form-control form-control-sm mb-2" placeholder="Password">
+            <button class="btn btn-maroon btn-sm w-100" onclick="authAudit()">Masuk Panel</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="header-jaga" style="background-image: linear-gradient(135deg, rgba(128, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 80%), url('https://images.weserv.nl/?url=drive.google.com/uc?id=120XSunX58ER8nj7weHl26tSuYAVtmG41');">
+
+  <div class="container header-content" id="headerWrapper">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <h1 class="display-2 fw-bold mb-0">JAGA HARTWELL</h1>
+        <p class="h4 fw-light text-uppercase tracking-widest text-warning mb-4" style="letter-spacing: 4px; opacity: 0.9;">
+          Whistleblowing System
+        </p>
+        
+        <div style="min-height: 80px;">
+          <p class="lead fs-3 fw-bold mb-1" id="mainMessage">Integritas adalah Nafas Kami.</p>
+          <p class="alternating-text mb-4" id="subMessage">Laporkan setiap pelanggaran secara aman & anonim.</p>
+        </div>
+
+        <div class="description-box mx-auto p-4">
+          <p class="mb-0">
+            <strong>Whistleblowing System (WBS)</strong> merupakan sarana pelaporan yang disediakan oleh 
+            <strong>PT Hartwell Paint Indonesia</strong> bagi pihak internal maupun eksternal yang memiliki 
+            informasi terkait dugaan pelanggaran yang terjadi di lingkungan perusahaan. Sistem ini bertujuan 
+            untuk mendorong terciptanya budaya integritas, transparansi, dan akuntabilitas dalam operasional perusahaan.
+          </p>
+        </div>
+      </div>
+
+    </div>
+                  <a href="#infografis" class="bounce text-white">
+          <i class="fas fa-chevron-down"></i>
+        </a>
+  </div>
+
+
+</header>
+
+<div class="container my-5">
+    
+    <section id="infografis">
+      <div class="section-title text-center">
+        <h2>Progress Pelayanan Laporan</h2>
+        <p class="text-muted">Data real-time penanganan pengaduan</p>
+      </div>
+      
+      <div class="row g-4 mb-5 text-center">
+        <div class="col-md-3">
+          <div class="progress-box border-bottom border-4 border-dark">
+            <h6 class="text-muted small">TOTAL ADUAN</h6>
+            <h2 id="tTotal" class="display-6 fw-bold">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="progress-box border-bottom border-4 border-primary">
+            <h6 class="text-muted small">BARU MASUK</h6>
+            <h2 id="tBaru" class="display-6 fw-bold text-primary">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="progress-box border-bottom border-4 border-warning">
+            <h6 class="text-muted small">PROSES</h6>
+            <h2 id="tProses" class="display-6 fw-bold text-warning">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="progress-box border-bottom border-4 border-success">
+            <h6 class="text-muted small">SELESAI</h6>
+            <h2 id="tSelesai" class="display-6 fw-bold text-success">0</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tata-cara" class="mt-5">
+      <div class="section-title text-center">
+        <h2>Tata Cara Pengaduan</h2>
+      </div>
+      <div class="row text-center g-4">
+        <div class="col-md-4">
+          <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+          <h5>1. Isi Formulir</h5>
+          <p class="text-muted small">Klik tombol 'Buat Laporan' dan isi detail pelanggaran secara jujur.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="step-icon"><i class="fas fa-paperclip"></i></div>
+          <h5>2. Unggah Bukti</h5>
+          <p class="text-muted small">Sertakan foto, dokumen, atau rekaman sebagai bukti pendukung.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="step-icon"><i class="fas fa-user-shield"></i></div>
+          <h5>3. Pantau & Selesai</h5>
+          <p class="text-muted small">Tim audit akan memverifikasi. Identitas Anda dijamin 100% anonim.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="detail-wbs" class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title text-center">
+      <h2>Panduan & Ketentuan Pelaporan</h2>
+      <p class="text-muted text-uppercase small" style="letter-spacing: 2px;">Informasi Penting Bagi Pelapor</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
+          <h5 class="fw-bold text-maroon border-bottom pb-2 mb-3"><i class="fas fa-list-check me-2"></i>A.1. Unsur Pengaduan (5W + 1H)</h5>
+          <p class="small text-muted mb-3">Pengaduan diharapkan memenuhi unsur-unsur sebagai berikut:</p>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><strong>What:</strong> Perbuatan berindikasi pelanggaran yang diketahui.</li>
+            <li class="mb-2"><strong>Where:</strong> Dimana perbuatan tersebut dilakukan.</li>
+            <li class="mb-2"><strong>When:</strong> Kapan perbuatan tersebut dilakukan.</li>
+            <li class="mb-2"><strong>Who:</strong> Siapa saja yang terlibat dalam perbuatan tersebut.</li>
+            <li><strong>How:</strong> Bagaimana perbuatan dilakukan (modus, cara, dsb.)</li>
+          </ul>
+          
+          <h5 class="fw-bold text-maroon border-bottom pb-2 mt-4 mb-3"><i class="fas fa-user-secret me-2"></i>A.2. Kerahasiaan Pelapor</h5>
+          <div class="alert alert-warning border-0 small mb-0">
+            <strong>Komitmen PT Hartwell Paint Indonesia:</strong> Kami menjaga kerahasiaan identitas pelapor (whistleblower). Agar tetap anonim, perhatikan:
+            <ul class="mt-2 mb-0 ps-3">
+              <li>Jangan mencantumkan data pribadi atau hubungan dengan terlapor.</li>
+              <li>Hindari informasi yang memungkinkan pelacakan identitas.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm rounded-4 p-4">
+          <h5 class="fw-bold text-maroon border-bottom pb-2 mb-3"><i class="fas fa-users me-2"></i>A.3. Pihak Pelapor WBS</h5>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <span class="badge bg-maroon px-3 py-2">Internal (Karyawan)</span>
+            <span class="badge bg-maroon px-3 py-2">Pemasok / Supplier</span>
+            <span class="badge bg-maroon px-3 py-2">Pelanggan / Customer</span>
+            <span class="badge bg-maroon px-3 py-2">Masyarakat Umum</span>
+          </div>
+
+          <h5 class="fw-bold text-maroon border-bottom pb-2 mb-3"><i class="fas fa-gavel me-2"></i>A.4. Jenis Pelanggaran</h5>
+          <div class="accordion accordion-flush small" id="accViolation">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#v1">1. Korupsi & Penyuapan</button>
+              </h2>
+              <div id="v1" class="accordion-collapse collapse" data-bs-parent="#accViolation">
+                <div class="accordion-body text-muted">Termasuk segala bentuk suap (bribery) dan tindakan koruptif lainnya.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#v2">2. Kecurangan (Fraud) & Finansial</button>
+              </h2>
+              <div id="v2" class="accordion-collapse collapse" data-bs-parent="#accViolation">
+                <div class="accordion-body text-muted">
+                  Pemalsuan dokumen, manipulasi laporan keuangan, benturan kepentingan, gratifikasi, serta pencurian/penyalahgunaan aset perusahaan.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#v3">3. Tindakan Pidana Lainnya</button>
+              </h2>
+              <div id="v3" class="accordion-collapse collapse" data-bs-parent="#accViolation">
+                <div class="accordion-body text-muted">Pemerasan, pemaksaan, atau ancaman untuk keuntungan pribadi/pihak lain.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#v4">4. Pelanggaran Lingkungan Kerja</button>
+              </h2>
+              <div id="v4" class="accordion-collapse collapse" data-bs-parent="#accViolation">
+                <div class="accordion-body text-muted">Pelecehan seksual, perundungan (bullying), diskriminasi (Gender/SARA), dan pencemaran nama baik.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#v5">5. Pelanggaran Kode Etik & Lingkungan</button>
+              </h2>
+              <div id="v5" class="accordion-collapse collapse" data-bs-parent="#accViolation">
+                <div class="accordion-body text-muted">Kebocoran rahasia perusahaan, sikap tidak objektif (unfair), serta perusakan lingkungan hidup akibat kelalaian.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="adminTable" style="display:none;" class="mt-5 pt-5">
+      <div class="section-title text-center">
+        <h2>Data Laporan Masuk</h2>
+        <p class="text-muted small">Khusus Verifikator Tim Audit</p>
+      </div>
+      <div class="table-responsive bg-white p-4 rounded shadow-lg border-top border-maroon border-4">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Waktu</th>
+              <th>ID Laporan</th>
+              <th>Kategori</th>
+              <th>Status</th>
+              <th>Lampiran</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+</div>
+
+<footer class="text-center py-4 text-muted border-top">
+  <small>&copy; 2026 JAGA HARTWELL - Berani Jujur Itu Hebat</small>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const AUDIT_PASSWORD = "Audit123";
+  let lastTotal = 0;
+
+  // Auto-refresh data
+  setInterval(() => {
+    google.script.run.withSuccessHandler(renderData).getFullData();
+  }, 30000); 
+
+  window.onload = function() {
+    google.script.run.withSuccessHandler(renderData).getFullData();
+  };
+
+  function renderData(res) {
+    animateValue("tTotal", lastTotal, res.stats.total, 500);
+    animateValue("tBaru", 0, res.stats.baru, 500);
+    animateValue("tProses", 0, res.stats.proses, 500);
+    animateValue("tSelesai", 0, res.stats.selesai, 500);
+    lastTotal = res.stats.total;
+
+    let html = "";
+    res.reports.forEach(r => {
+      let badgeClass = r.status === "Baru" ? "bg-primary" : r.status === "Proses" ? "bg-warning text-dark" : "bg-success";
+      html += `<tr>
+        <td><small>${r.ts}</small></td>
+        <td><b>${r.id}</b></td>
+        <td>${r.kategori}</td>
+        <td><span class="badge ${badgeClass}">${r.status}</span></td>
+        <td><a href="${r.link}" target="_blank" class="btn btn-sm btn-outline-danger">File</a></td>
+      </tr>`;
+    });
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  function animateValue(id, start, end, duration) {
+    const obj = document.getElementById(id);
+    if (!obj || start === end) return;
+    const range = end - start;
+    let current = start;
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.abs(Math.floor(duration / range)) || 10;
+    const timer = setInterval(() => {
+      current += increment;
+      obj.innerHTML = current;
+      if (current == end) clearInterval(timer);
+    }, stepTime);
+  }
+
+  function authAudit() {
+    const passInput = document.getElementById("passInput").value;
+    if (passInput === AUDIT_PASSWORD) {
+      const table = document.getElementById("adminTable");
+      table.style.display = "block";
+      table.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert("Password Salah!");
+    }
+  }
+
+  // Alternating Header
+  const headerData = [
+    { main: "Integritas adalah Nafas Kami.", sub: "Berani jujur untuk lingkungan kerja yang sehat." },
+    { main: "Kerahasiaan Anda Prioritas Kami.", sub: "Laporan diproses 100% secara anonim dan aman." },
+    { main: "Jaga Aset Hartwell Bersama.", sub: "Stop Fraud, Stop Korupsi, Stop Gratifikasi." },
+    { main: "Suara Anda Membawa Perubahan.", sub: "Jangan diam, laporkan pelanggaran di sekitar Anda." }
+  ];
+  let currentIndex = 0;
+
+  function updateHeader() {
+    const wrapper = document.getElementById('headerWrapper');
+    wrapper.classList.add('fade-out');
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % headerData.length;
+      document.getElementById('mainMessage').innerText = headerData[currentIndex].main;
+      document.getElementById('subMessage').innerText = headerData[currentIndex].sub;
+      wrapper.classList.remove('fade-out');
+    }, 800);
+  }
+  setInterval(updateHeader, 5000);
+
+  // Tambahkan ini di bagian script Dashboard.html
+document.getElementById('wbsForm').onsubmit = async function(e) {
+  e.preventDefault();
+  
+  const fileInput = document.getElementById('fileInput');
+  const files = fileInput.files;
+
+  // Validasi tambahan: Pastikan minimal 1 file diunggah jika Anda mewajibkan bukti
+  if (files.length === 0) {
+    alert("Mohon unggah minimal satu bukti laporan.");
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Mengirim...';
+
+  // Lanjutkan proses pembacaan file dan pengiriman seperti kode sebelumnya...
+  const allFilesData = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const data = await readFileAsBase64(file);
+    allFilesData.push({
+      data: data.split(',')[1],
+      mimeType: file.type,
+      fileName: "WBS_" + Date.now() + "_" + file.name
+    });
+  }
+  
+  sendData(allFilesData);
+};
+
+// Helper function untuk membaca file secara asynchronous
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function sendData(filesArray) {
+  const form = document.getElementById('wbsForm');
+  const formData = new FormData(form);
+  const dataObj = {};
+  formData.forEach((val, key) => dataObj[key] = val);
+
+  // Kirim array filesArray ke server
+  google.script.run
+    .withSuccessHandler(function(id) {
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    })
+    .withFailureHandler(function(err) {
+      alert("Gagal: " + err);
+      document.getElementById('submitBtn').disabled = false;
+    })
+    .processForm(dataObj, filesArray);
+}
+
+function sendData(fileData) {
+  const form = document.getElementById('wbsForm');
+  const formData = new FormData(form);
+  const dataObj = {};
+  formData.forEach((val, key) => dataObj[key] = val);
+
+  google.script.run
+    .withSuccessHandler(function(id) {
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    })
+    .processForm(dataObj, fileData);
+}
+</script>
+</body>
+</html>
